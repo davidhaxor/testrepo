@@ -1,0 +1,993 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="FORMINFO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SUBJECT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ADDR">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="STREET" type="xs:string" />
+                    <xs:element name="CITY" type="xs:string" />
+                    <xs:element name="STATEPROV" type="xs:string" />
+                    <xs:element name="ZIP" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ASSESPARCEL">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LOANNUM" type="xs:string" />
+              <xs:element name="ORDER">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TRACKING">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BORROWER" type="xs:string" />
+              <xs:element name="CURRENTOWNER" type="xs:string" />
+              <xs:element name="COUNTY" type="xs:string" />
+              <xs:element name="PROJ">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TYPE" type="xs:string" />
+                    <xs:element name="DESCRIPTION" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="HOMEOWNERASSNFEE" type="xs:string" />
+              <xs:element name="DISASTER">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="RESPONSE" type="xs:string" />
+                    <xs:element name="DATE" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SOLDLISTED">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PREVIOUSPRICE" type="xs:string" />
+                    <xs:element name="PREVIOUSDATE" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="VALUE" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CURRENTOCCUPANT" type="xs:string" />
+              <xs:element name="PROPSECURE" type="xs:string" />
+              <xs:element name="CURRENTUSE" type="xs:string" />
+              <xs:element name="PROJECTEDUSE" type="xs:string" />
+              <xs:element name="DATASRC" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REVIEW">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DESCRIPTION" type="xs:string" />
+              <xs:element name="TYPE" type="xs:string" />
+              <xs:element name="REPORTSECTION">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SUBJECT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="COMMENTS" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="NBRHOOD">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MARKETDATA">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SUBJECT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LIVINGSQFT" type="xs:string" />
+                          <xs:element name="LOTSIZE" type="xs:string" />
+                          <xs:element name="ABOVEGRADE">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="BEDROOMS" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="NUMUNITS" type="xs:string" />
+                          <xs:element name="PROPTYPE" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="COMPAGE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RESPONSE" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SOLD6MONTHS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LISTPRICEAVG" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SOLD3MONTHS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LISTPRICEAVG" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LENDERCLIENT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="COMPANY">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NAME" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ADDR">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="STREET" type="xs:string" />
+                    <xs:element name="CITY" type="xs:string" />
+                    <xs:element name="STATEPROV" type="xs:string" />
+                    <xs:element name="ZIP" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="IMPROVEMENTS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="GENERAL">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NEWCONSTRUCTION" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LISTINGCOMP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SUBJECT">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="MARKETDAYS" type="xs:string" />
+                    <xs:element name="ORIGINALPRICE" type="xs:string" />
+                    <xs:element name="ORIGINALLISTINGDATE" type="xs:string" />
+                    <xs:element name="LISTINGPRICE" type="xs:string" />
+                    <xs:element name="REVISIONDATE" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="NUM" type="xs:string" />
+              <xs:element name="PRICE">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LOW" type="xs:string" />
+                    <xs:element name="HIGH" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="REPAIR">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ITEM" type="xs:string" />
+                    <xs:element name="RESPONSE" type="xs:string" />
+                    <xs:element name="ESTCOST" type="xs:string" />
+                    <xs:element minOccurs="0" name="TOTALCOST" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="LISTCOMPS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ADDR">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="STREET" type="xs:string" />
+                          <xs:element name="CITY" type="xs:string" />
+                          <xs:element name="ZIP" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DATA" type="xs:string" />
+                    <xs:element name="PROXIMITY" type="xs:string" />
+                    <xs:element name="ORGLISTINGDT" type="xs:string" />
+                    <xs:element name="ORIGINALPRICE" type="xs:string" />
+                    <xs:element name="LISTINGPRICE" type="xs:string" />
+                    <xs:element name="MARKETDAYS" type="xs:string" />
+                    <xs:element name="TOTDAYSMARKET" type="xs:string" />
+                    <xs:element name="SRCFUNDS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CONCESSIONS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SALES">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DESCRIPTION" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DISTRESSEDSALE" type="xs:string" />
+                    <xs:element name="LOTSIZE" type="xs:string" />
+                    <xs:element name="SITE" type="xs:string" />
+                    <xs:element name="VIEW" type="xs:string" />
+                    <xs:element name="VIEWCOMPARISON" type="xs:string" />
+                    <xs:element name="PROPTYPE" type="xs:string" />
+                    <xs:element name="UNITNUM" type="xs:string" />
+                    <xs:element name="CONSTRUCT" type="xs:string" />
+                    <xs:element name="DESIGNSTYLE" type="xs:string" />
+                    <xs:element name="AGEYRS" type="xs:string" />
+                    <xs:element name="CONDITION" type="xs:string" />
+                    <xs:element name="LIVINGSQFT" type="xs:string" />
+                    <xs:element name="ABOVEGRADE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ROOMTOT" type="xs:string" />
+                          <xs:element name="BEDROOMS" type="xs:string" />
+                          <xs:element name="BATHFULL" type="xs:string" />
+                          <xs:element name="BATHHALF" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="BASEMENTTYPE" type="xs:string" />
+                    <xs:element name="BASEMENT" type="xs:string" />
+                    <xs:element name="BASEMENTFINISH" type="xs:string" />
+                    <xs:element name="GARAGE" type="xs:string" />
+                    <xs:element name="GARAGENUMCARS" type="xs:string" />
+                    <xs:element name="POOL" type="xs:string" />
+                    <xs:element name="OTHERAMENITIES" type="xs:string" />
+                    <xs:element name="HOAASSESSMENT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="MOSTCOMPARABLE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RESPONSE" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="COMPNUM" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ANALYSISLISTINGDATA" type="xs:string" />
+              <xs:element name="ANALYSISLISTINGDATA2" type="xs:string" />
+              <xs:element name="ANALYSISLISTINGDATA3" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SITE">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SALESHISTORY">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="RESPONSE" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ZONING">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SPECIFIC" type="xs:string" />
+                    <xs:element name="DESCRIPTION" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LISTBROKER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NAME" type="xs:string" />
+              <xs:element name="COMPANY">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NAME" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PHONE" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REPORT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DATE" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="NBRHOOD">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LOCATION" type="xs:string" />
+              <xs:element name="PROPVALUES" type="xs:string" />
+              <xs:element name="MARKETINGTIME" type="xs:string" />
+              <xs:element name="HOUSINGSUMMARY">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="MEDIANRENT" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MARKETINGTIMEDESCRIPTION" type="xs:string" />
+              <xs:element name="OCCUPANCY">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="OWNER">
+                      <xs:complexType>
+                        <xs:attribute name="OWNER" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="VACANT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PERCENT" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LANDUSE">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="INDUSTRIAL" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="NEWCONSTRUCTION" type="xs:string" />
+              <xs:element name="DISASTER">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="RESPONSE" type="xs:string" />
+                    <xs:element name="DATE" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MARKETCONDITIONS" type="xs:string" />
+              <xs:element name="CLOSEDSALESPAST">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MARKET">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ABSORPTIONRATE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LAST4TO6MOS" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="MEDIANSALESPRICE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LAST4TO6MOS" type="xs:string" />
+                          <xs:element name="LAST3MONTHS" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SALESTOLISTRATIO">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LAST4TO6MOS" type="xs:string" />
+                          <xs:element name="LAST3MONTHS" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PENDINGSALES">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="DEMANDSUPPLY" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="COMMENT">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="REOSALESEFFECT" type="xs:string" />
+              <xs:element name="COMMENTS" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SALESCOMP">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="COMPSALES">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                    <xs:element name="PRICE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="LOW" type="xs:string" />
+                          <xs:element name="HIGH" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="RADIUS" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SUBJECT">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="YRBUILT" type="xs:string" />
+                    <xs:element name="ABOVEGRADE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="BATH" type="xs:string" />
+                          <xs:element name="ROOMTOT" type="xs:string" />
+                          <xs:element name="BEDROOMS" type="xs:string" />
+                          <xs:element name="BATHFULL" type="xs:string" />
+                          <xs:element name="BATHHALF" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ADDR">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="STREET" type="xs:string" />
+                          <xs:element name="CITY" type="xs:string" />
+                          <xs:element name="ZIP" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ORIGINALLISTDT" type="xs:string" />
+                    <xs:element name="ORIGINALLISTPRICE" type="xs:string" />
+                    <xs:element name="CURRENTLISTPRICE" type="xs:string" />
+                    <xs:element name="DAYSONMARKET" type="xs:string" />
+                    <xs:element name="TOTDAYSONMARKET" type="xs:string" />
+                    <xs:element name="SRCFUNDS" type="xs:string" />
+                    <xs:element name="CONCESSIONS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SALES" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DISTRESSEDSALE" type="xs:string" />
+                    <xs:element name="LOTSIZE" type="xs:string" />
+                    <xs:element name="SITE" type="xs:string" />
+                    <xs:element name="VIEW" type="xs:string" />
+                    <xs:element name="PROPTYPE" type="xs:string" />
+                    <xs:element name="NUMUNITS" type="xs:string" />
+                    <xs:element name="CONSTRUCT" type="xs:string" />
+                    <xs:element name="DESIGNSTYLE" type="xs:string" />
+                    <xs:element name="AGEYRS" type="xs:string" />
+                    <xs:element name="CONDITION" type="xs:string" />
+                    <xs:element name="LIVINGSQFT" type="xs:string" />
+                    <xs:element name="BASEMENTTYPE" type="xs:string" />
+                    <xs:element name="BASEMENT" type="xs:string" />
+                    <xs:element name="BASEMENTFINISH" type="xs:string" />
+                    <xs:element name="GARAGE" type="xs:string" />
+                    <xs:element name="GARAGENUMCARS" type="xs:string" />
+                    <xs:element name="POOL" type="xs:string" />
+                    <xs:element name="AMENITIES" type="xs:string" />
+                    <xs:element name="HOAASSESSMENT" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="COMPS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ADDR">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="STREET" type="xs:string" />
+                          <xs:element name="CITY" type="xs:string" />
+                          <xs:element name="ZIP" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DATA" type="xs:string" />
+                    <xs:element name="PROXIMITY" type="xs:string" />
+                    <xs:element name="ORIGINALLISTINGDT" type="xs:string" />
+                    <xs:element name="ORIGINALPRICE" type="xs:string" />
+                    <xs:element name="LISTPRICE" type="xs:string" />
+                    <xs:element name="SALE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DATE" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SALESPRICE" type="xs:string" />
+                    <xs:element name="MARKETDAYS" type="xs:string" />
+                    <xs:element name="TOTMARKETDAYS" type="xs:string" />
+                    <xs:element name="SRCFUNDS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CONCESSIONS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SALES">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DESCRIPTION" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DISTRESSEDSALE" type="xs:string" />
+                    <xs:element name="LOTSIZE" type="xs:string" />
+                    <xs:element name="SITE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="VIEW">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="VIEWCOMPARISON">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="PROPTYPE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="NUMUNITS">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CONSTRUCT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DESIGNSTYLE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="AGEYRS">
+                      <xs:complexType>
+                        <xs:attribute name="AGEYRS" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CONDITION">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="LIVINGSQFT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SQFT" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ABOVEGRADE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ROOMTOT" type="xs:string" />
+                          <xs:element name="BEDROOMS" type="xs:string" />
+                          <xs:element name="BATHFULL" type="xs:string" />
+                          <xs:element name="BATHHALF" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="BASEMENTTYPE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="BASEMENT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="BASEMENTFINISH">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="GARAGE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                          <xs:element name="NUMCARS" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="POOL">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="AMENITIES">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="HOAASSESSMENT">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="DESCRIPTION" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="MOSTCOMPARABLE">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RESPONSE" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="COMPNUM" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="COMMENTSALE1" type="xs:string" />
+              <xs:element name="COMMENTSALE2" type="xs:string" />
+              <xs:element name="COMMENTSALE3" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RECONCIL">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="REDFLAG">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="DAMAGED" type="xs:string" />
+                    <xs:element name="CONSTRUCTION" type="xs:string" />
+                    <xs:element name="ENVIRONMENTAL" type="xs:string" />
+                    <xs:element name="ZONING" type="xs:string" />
+                    <xs:element name="MARKETACTIVITY" type="xs:string" />
+                    <xs:element name="BOARDED" type="xs:string" />
+                    <xs:element name="STIGMA" type="xs:string" />
+                    <xs:element name="OTHER" type="xs:string" />
+                    <xs:element name="COMMENTS" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ESTMARKETVALUE">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="QUICKMKTTIME">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ASIS">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="LISTAMT" type="xs:string" />
+                                <xs:element name="AMT" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="NORMALMKTTIME">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ASIS">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DAYS" type="xs:string" />
+                                <xs:element name="LISTAMT" type="xs:string" />
+                                <xs:element name="AMT" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="REPAIRED">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="DAYS" type="xs:string" />
+                                <xs:element name="LISTAMT" type="xs:string" />
+                                <xs:element name="AMT" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ADDENDUMS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SIGNATURE">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="APPRAISER">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FILENAME" type="xs:string" />
+                          <xs:element name="FILETYPE" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SUBJECTPHOTO">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="FRONTVIEW">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FILENAME" type="xs:string" />
+                          <xs:element name="FILETYPE" type="xs:string" />
+                          <xs:element maxOccurs="unbounded" name="DESCRIPTION">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="REARVIEW">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FILENAME" type="xs:string" />
+                          <xs:element name="FILETYPE" type="xs:string" />
+                          <xs:element maxOccurs="unbounded" name="DESCRIPTION">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="STREETVIEW">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FILENAME" type="xs:string" />
+                          <xs:element name="FILETYPE" type="xs:string" />
+                          <xs:element maxOccurs="unbounded" name="DESCRIPTION">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ADDITIONALPHOTOS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:choice maxOccurs="unbounded">
+                      <xs:element name="PHOTO">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="FILENAME" type="xs:string" />
+                            <xs:element name="FILETYPE" type="xs:string" />
+                            <xs:element maxOccurs="unbounded" name="DESCRIPTION">
+                              <xs:complexType>
+                                <xs:simpleContent>
+                                  <xs:extension base="xs:string">
+                                    <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                                  </xs:extension>
+                                </xs:simpleContent>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="MAP">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="FILENAME" type="xs:string" />
+                            <xs:element name="FILETYPE" type="xs:string" />
+                            <xs:element name="TITLE" type="xs:string" />
+                          </xs:sequence>
+                          <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:choice>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="COMPPHOTO">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="FILENAME" type="xs:string" />
+                    <xs:element name="FILETYPE" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="COMPNUM" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LOCATIONMAP">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NAME" type="xs:string" />
+                    <xs:element name="FILENAME" type="xs:string" />
+                    <xs:element name="FILETYPE" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="LISTINGCOMPPHOTO">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="FILENAME" type="xs:string" />
+                    <xs:element name="FILETYPE" type="xs:string" />
+                    <xs:element maxOccurs="unbounded" name="DESCRIPTION">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="NUM" type="xs:unsignedByte" use="required" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="COMPNUM" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BROKER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NAME" type="xs:string" />
+              <xs:element name="LICENSE">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NUM" type="xs:string" />
+                    <xs:element name="STATEPROV" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="COMPANY">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="NAME" type="xs:string" />
+                    <xs:element name="ADDR" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="PHONE" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="APPRAISER">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SIGNED">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="DATE" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="FORMNUM" type="xs:string" use="required" />
+      <xs:attribute name="FILENUM" type="xs:string" use="required" />
+      <xs:attribute name="VENDOR" type="xs:string" use="required" />
+      <xs:attribute name="VERSION" type="xs:string" use="required" />
+      <xs:attribute name="CASE_NO" type="xs:string" use="required" />
+      <xs:attribute name="DOCID" type="xs:string" use="required" />
+      <xs:attribute name="FORMVERSION" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

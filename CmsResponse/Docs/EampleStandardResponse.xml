@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Collateral Management System
+Functional Specifications
+Standard API Version 11.8
+Revised: 11/09/2015 Page 114 of 299
+-->
+<StatusUpdateRq xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://fncinc.com/CHQ">
+   <Header Version="1.0">
+      <SourceApp xmlns="http://fncinc.com/Integration.xsd">CHQ</SourceApp>
+      <TargetApp xmlns="http://fncinc.com/Integration.xsd">LOS</TargetApp>
+      <AppInstance xmlns="http://fncinc.com/Integration.xsd">FNCINC</AppInstance>
+      <AppInstanceLogin xmlns="http://fncinc.com/Integration.xsd">abcbank</AppInstanceLogin>
+      <AppInstancePwd xmlns="http://fncinc.com/Integration.xsd">Password123</AppInstancePwd>
+      <Timestamp xmlns="http://fncinc.com/Integration.xsd">2013-10-10T16:27:51.4456964-05:00</Timestamp>
+      <MessageId xmlns="http://fncinc.com/Integration.xsd">74179ebc-3bfa-4435-9d5f-ea84a7f0a876</MessageId>
+      <SequenceKey xmlns="http://fncinc.com/Integration.xsd">3569d448-f69f-46d6-9b97-97b558746258</SequenceKey>
+      <SequenceNumber xmlns="http://fncinc.com/Integration.xsd">8</SequenceNumber>
+   </Header>
+   <StatusUpdate>
+      <DocId>20100910-5652-1</DocId>
+      <LoanNumber>91010114</LoanNumber>
+      <StatusId>LA</StatusId>
+      <Description>APPROVED - AS IS</Description>
+      <ReportUrl>https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=CC736200-EC05-1A18-9140-367C433AF742</ReportUrl>
+      <UCDPReadyFileURL>https://collateralhq.fncinc.com/default.aspx?pageId=viewUCDPReadyFile&amp;docID=21100910-5652-1&amp;fileId=cc736200-ec05-4a18-9140-367c433af742</UCDPReadyFileURL>
+      <FannieSSR>https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=DF8E1025-F1F8-12E6-9CC2-4D151D98256D</FannieSSR>
+      <FreddieSSR>https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=0A07E673-4A2D-1F81-BEBB-B0068C2D1DFE</FreddieSSR>
+      <UCDPElements>
+         <FannieStatus>IS0000</FannieStatus>
+         <FreddieStatus>IS0000</FreddieStatus>
+         <UCDPID>1100071CB5</UCDPID>
+         <SubmissionID>20122ONMK3BBKJKLE8L5</SubmissionID>
+         <RecentSubmission>2012-02-23T15:42:14</RecentSubmission>
+         <RecentFinding>2012-02-23T15:44:08</RecentFinding>
+         <GateWayStatus>Complete</GateWayStatus>
+         <GatewayNote>Complete</GatewayNote>
+         <CUScore>999</CUScore> 
+      </UCDPElements>
+      <IsPreDelivery>false</IsPreDelivery>
+      <AssociatedFiles FileType="Appraisal Invoice" FileUrl="https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=3f74f52d-d378-45af-9dea-1bd447964c29"/> 
+      <AssociatedFiles FileType="Other Documents" FileUrl="https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=e4fea73e-f4ad-4c7b-a203-19d9ddb431bb"/>
+      <AssociatedFiles FileType="Review Scope" FileUrl="https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=3f7f052f-f58f-4629-8695-19bc2bcb31d7"/> 
+      <AssociatedFiles FileType="Review" FileUrl="https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=6ff6f1bf-3448-40ec-ab99-1ce33e04d954"/>
+      <AssociatedFiles FileType="Valuation Independence Letter" FileUrl="https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=41fd5095-d2d1-49f5-b53a-2e05661ec2f3"/> 
+      <AssociatedFiles FileType="Customer Invoice (System)" FileUrl="https://collateralhq.fncinc.com/default.aspx?pageId=streamfile&amp;fileId=4b36317c-1b81-4e11-96f0-913ae59ba327"/>
+   </StatusUpdate>
+</StatusUpdateRq>
+
+
+

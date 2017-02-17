@@ -1,0 +1,125 @@
+Resnet\WebService\ReoServices\FNC_IF\SendCMSOrders\Docs\Installation Of Service.txt
+-----------------------------------------------------------------------------------
+
+Description:
+
+This program does the follwing:
+  a. receives requests to generate BPO XML data from the REO database and
+  b. submit to FNC www.aiready.com to convert XML data to a .PDF and .ENV files
+  c. .PDF/.ENV files are stored into the REO BPO Subject folder
+
+The program monitors the configured folder for the creation of
+files meeting this filter
+
+   <add key="listen_filter" value="GetBpoPdf_*.txt" />
+
+where the * will be an REO Picture Task Id.
+The reo.res.com website will issue these requests periodically
+as Asset Managers receive BPO data and pictures from agents
+
+The content of the files is unimportant but do contain the requesting
+Asset Managers id, e.g:  AM: ###
+
+
+1. Help available by executing the SendToCMS.exe with no arguments, e.g.
+
+   c:\Services\SendToCMS>SendToCMS.exe
+   
+   SendCMSOrders Background Monitor
+   
+   command line arguments (case insensitive)
+   
+   -i,-install,--install       install as Service
+   -u,-uninstall,--uninstall   un-install Service
+   -s,-startsvc,--startsvc     start service
+   -c,-console,--console       run at console in a loop
+   -o,-once,--once             run one time to process pending files in listening folder
+   -t=##,-tid=##,--tid=###     run for this picture task_id (tid)
+
+2. Services paramters are located in the App.config file
+
+   e.g. <add key="ServiceName" value="ReoSendToCMS" />
+
+3. Service installation requires 3 steps
+
+   a. c:\Services\SendToCMS>SendToCMS.exe -i
+   b. SC CONFIG ReoSendToCMS binPath= "{PathToFolder}\SendToCMS.exe -s" obj= "HQ\SVC-SendToCms" password= "XXXXXX"
+      Note: space after = sign are required
+   c. net start ReoSendToCMS
+
+   note: After successfule install (-i) of service
+         the 2nd two commands are displayed as a reminder e.g.
+
+   C:\Services\SendToCMS>SendToCMS.exe -i
+
+   Installing assembly 'c:\Services\SendToCMS\SendToCMS.exe'.
+   Affected parameters are:
+      i =
+      logfile = c:\Services\SendToCMS\SendToCMS.InstallLog
+      assemblypath = c:\Services\SendToCMS\SendToCMS.exe
+   Installing service ReoSendToCMS...
+   Service ReoSendToCMS has been successfully installed.
+   Creating EventLog source ReoSendToCMS in log Application...
+   See the contents of the log file for the c:\Services\SendToCMS\SendToCMS.exe assembly's progress.
+   The file is located at c:\Services\SendToCMS\SendToCMS.InstallLog.
+   Committing assembly 'c:\Services\SendToCMS\SendToCMS.exe'.
+   Affected parameters are:
+      i =
+      logfile = c:\Services\SendToCMS\SendToCMS.InstallLog
+      assemblypath = c:\Services\SendToCMS\SendToCMS.exe
+      logtoconsole =
+
+   After Install, issue these 2 commands with the correct values:
+
+   SC CONFIG ReoSendToCMS binPath= "{PathToFolder}\SendToCMS.exe -s" obj= "HQ\SVC-SendToCms" password= "XXXXXX"
+   net start ReoSendToCMS
+
+
+4. App.config Settings are important. Review them
+
+   a. <appSettings> e.g.
+
+      <add key="listen_path" value="C:\temp\CMS\TestXmls\WatchGenBpoPdf" />
+      <add key="envSaveTempFiles" value="Yes"/>
+
+   b. Log4Net logging config
+
+      <appender name="LogFileAppenderError" type="log4net.Appender.RollingFileAppender">
+        ...
+        <File value="c:/Logs/SendToCMS.error.log" />
+
+      <appender name="LogFileAppenderDebug" type="log4net.Appender.RollingFileAppender">
+        ...
+        <File value="c:/Logs/SendToCMS.debug.log" />
+
+5. For Prod Use, turn off these verbose log file settings
+
+   a. <add key="envSaveTempFiles" value="Yes"/>
+
+      Note: Set value="No"
+            value="Yes" will save each HTTP Request and HTTP Response
+            the Request (includes pics) can be large
+
+   b. <appender name="LogFileAppenderDebug" type="log4net.Appender.RollingFileAppender">
+        <filter type="log4net.Filter.LevelRangeFilter">
+         <levelMin value="DEBUG" />
+         <levelMax value="INFO" />
+        </filter>
+
+      Note: Set both min/max values to "OFF" or "INFO"
+            minValue="Debug"  will log every sql stmt (2) per reuquest
+
+6. REO WebSite Config
+
+   a. WebHub webapp application configuration must match this programs settings
+
+      SendToCMS.exe.config
+         <appSettings>
+            <add key="listen_path" value="C:\temp\CMS\TestXmls\WatchGenBpoPdf" />
+
+      ResNet.ini
+
+         SendToCMSDir=Z:\CMS\TestXmls\WatchGenBpoPdf\GetBpoPdf_#ts#_#tid#.txt
+
+JCorrea 7/14/2016
+end.

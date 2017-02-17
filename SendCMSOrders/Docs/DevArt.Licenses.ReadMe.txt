@@ -1,0 +1,39 @@
+Embedding licensing for 
+
+   Devart.Data.MySql into Project (.dll)
+   
+Note:
+   Embedding into project with this method
+   will permit compiling at other workstations or BuildServer 
+   without needing to have the DevArt product installed
+
+   However, this procedure must be performed any time the 
+   DevArt product changes by version number
+
+reference
+   http://coder21.blogspot.cz/2014/04/devart-licensing-hell.html
+
+
+1. Exclude from project the licenses.licx files (usually in properties folder)
+
+2. Compile license into any .exe/.dll that uses driver
+
+   a. create licenses.licx in project root
+
+      add contents: Devart.Data.MySql.MySqlConnection, Devart.Data.MySql
+
+   b. copy microsoft lc.exe (licensing compiler) into project root
+
+      run command to create compiled license file
+
+         lc.exe /target:SendToCMS.exe /complist:licenses.licx /i:bin\debug\Devart.Data.MySql.dll /v
+         
+         outputs: SendToCMS.exe.licenses
+         
+   c. include SendToCMS.exe.licenses in Project with properties
+
+      Build Action             : Embedded Resource
+      Copy to Output Directory : Do not copy
+
+
+john correa, 2016-06-26

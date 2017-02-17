@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreateOrderRq 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns="http://fncinc.com/CHQ">
+   <Header Version="1.0">
+      <SourceApp xmlns="http://fncinc.com/Integration.xsd">SourceApp</SourceApp>
+      <TargetApp xmlns="http://fncinc.com/Integration.xsd">CHQ</TargetApp>
+      <AppInstance xmlns="http://fncinc.com/Integration.xsd">FNCINC</AppInstance>
+      <AppInstanceLogin xmlns="http://fncinc.com/Integration.xsd">abcbank</AppInstanceLogin>
+      <AppInstancePwd xmlns="http://fncinc.com/Integration.xsd">Password123</AppInstancePwd>
+      <Timestamp xmlns="http://fncinc.com/Integration.xsd">2008-09-05T14:39:46.1574462-05:00</Timestamp>
+      <MessageId xmlns="http://fncinc.com/Integration.xsd">bf4959c1-8b85-4929-8317-82a0833b7641</MessageId>
+   </Header>
+   <Order>
+      <GroupId>260099</GroupId>
+      <ProcPrsnPk>316675</ProcPrsnPk>
+      <ProcComments>This is a processor comment</ProcComments>
+      <OrderInfo>
+         <LoanNumber>1234135</LoanNumber>
+         <Reference1>123</Reference1>
+         <Reference2>456</Reference2>
+         <IsRushOrder>0</IsRushOrder>
+         <IsFHA>0</IsFHA>
+         <SubLoanType>USDA</SubLoanType>
+         <LoanClassificationCode>123A</LoanClassificationCode>
+         <OrderAttributeCode>1A</OrderAttributeCode>
+         <IsHighValue>0</IsHighValue>
+         <GovernmentCaseNumber></GovernmentCaseNumber>
+         <DueToCustomer>2009-05-27T14:11:00.943Z</DueToCustomer>
+         <DueFromVendor>2009-05-27T14:11:00.943Z</DueFromVendor>
+         <CustomerPk>377</CustomerPk>
+         <LoanOfficer>424</LoanOfficer>
+         <Channel>5</Channel>
+         <ApplicantFirstName>John</ApplicantFirstName>
+         <ApplicantMiddleInitial>A</ApplicantMiddleInitial>
+         <ApplicantLastName>Smith</ApplicantLastName>
+      </OrderInfo>
+      <PropertyAddress>
+         <RequireNormalization>1</RequireNormalization>
+         <UnstructuredStreetAddress>123 Hill Rd</UnstructuredStreetAddress>
+         <StreetNo></StreetNo>
+         <Prefix></Prefix>
+         <Street></Street>
+         <Suffix></Suffix>
+         <UnitNo></UnitNo>
+         <City>Randolph</City>
+         <County>Pontotoc</County>
+         <State>MS</State>
+         <Zip>38864</Zip>
+         <AccessInstruction>Key is under the front door mat.</AccessInstruction>
+      </PropertyAddress>
+      <PropertyTypeId>CNDHO</PropertyTypeId>
+      <LoanPurposeId>ACQ</LoanPurposeId>
+      <HpmlOrder>1</HpmlOrder>
+      <OccupancyTypeId>INV</OccupancyTypeId>
+      <OwnerEstimate>100000</OwnerEstimate>
+      <SalesPrice>100000</SalesPrice>
+      <OriginalPurchasePrice>100000</OriginalPurchasePrice>
+      <LoanAmount>80000</LoanAmount>
+      <CustomerPrice>425</CustomerPrice>
+      <ProviderFee>350</ProviderFee>
+      <ServiceId>1</ServiceId>
+      <ServiceProviderID> 290029</ServiceProviderID>
+      <BorrowerContact>
+         <Name>John Smith</Name>
+         <ContactTypeId>B</ContactTypeId>
+         <StreetAddress>123 Main St</StreetAddress>
+         <City>Los Angeles</City>
+         <State>CA</State>
+         <Zip>90210</Zip>
+         <County>Los Angeles</County>
+         <Phone>9991234567</Phone>
+         <PhoneExt></PhoneExt>
+         <AltPhone></AltPhone>
+         <AltPhoneExt></AltPhoneExt>
+         <CellPhone></CellPhone>
+         <Pager></Pager>
+         <Fax></Fax>
+         <Email>jsmith@mail.com</Email>
+         <CanContact>1</CanContact>
+      </BorrowerContact>
+      <AlternateContact>
+         <Name>John Smith</Name>
+         <ContactTypeId>E</ContactTypeId>
+         <StreetAddress>123 Main St</StreetAddress>
+         <City>Los Angeles</City>
+         <State>CA</State>
+         <Zip>90210</Zip>
+         <County>Los Angeles</County>
+         <Phone></Phone>
+         <PhoneExt></PhoneExt>
+         <AltPhone></AltPhone>
+         <AltPhoneExt></AltPhoneExt>
+         <CellPhone></CellPhone>
+         <Pager></Pager>
+         <Fax></Fax>
+         <Email>jsmith@mail.com</Email>
+         <CanContactAlt>0</CanContactAlt>
+      </AlternateContact>
+      <MCRequired>1</MCRequired>
+      <IsBorrowerCC>0</IsBorrowerCC>
+      <PaymentParty>test@fncinc.com</PaymentParty>
+      <ParentDocID>20030110-00001-1</ParentDocID>
+      <ByPassDupChk>1</ByPassDupChk>
+      <UsePreviousServiceProvider>0</UsePreviousServiceProvider>
+      <UsePreviousReviewer>1</UsePreviousReviewer>
+      <UsePreviousOrderAttributes>0</UsePreviousOrderAttributes>
+      <CustomerID>1</CustomerID>
+      <BatchName>ABC1234</BatchName> 
+   </Order>
+</CreateOrderRq>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://fncinc.com/Integration.xsd" elementFormDefault="qualified"
+  xmlns="http://fncinc.com/Integration.xsd" xmlns:mstns="http://fncinc.com/Integration.xsd"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GUID">
+    <xs:annotation>
+      <xs:documentation>Simple type for a document ID (guid)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern
+        value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ErrorMessage">
+    <xs:annotation>
+      <xs:documentation>Simple type for an error message</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="512"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ZipPlus4">
+    <xs:annotation>
+      <xs:documentation>Simple type for zip plus 4</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TelephoneNumber">
+    <xs:annotation>
+      <xs:documentation>Simple type for telephone numbers</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+      <xs:pattern value="^[0-9]{1,10}$"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TelephoneExtension">
+    <xs:annotation>
+      <xs:documentation>Simple type for telephone extensions</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string1">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string2">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string15">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string20">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string30">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="30"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string40">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="40"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string60">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="60"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string70">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="70"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string80">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string120">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="120"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string240">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="240"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string512">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="512"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string1024">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string3000">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="3000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="State">
+    <xs:annotation>
+      <xs:documentation>Simple type for a state code (enum)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AL"/>
+      <xs:enumeration value="AK"/>
+      <xs:enumeration value="AZ"/>
+      <xs:enumeration value="AR"/>
+      <xs:enumeration value="CA"/>
+      <xs:enumeration value="CO"/>
+      <xs:enumeration value="CT"/>
+      <xs:enumeration value="DE"/>
+      <xs:enumeration value="DC"/>
+      <xs:enumeration value="FL"/>
+      <xs:enumeration value="GA"/>
+      <xs:enumeration value="HI"/>
+      <xs:enumeration value="ID"/>
+      <xs:enumeration value="IL"/>
+      <xs:enumeration value="IN"/>
+      <xs:enumeration value="IA"/>
+      <xs:enumeration value="KS"/>
+      <xs:enumeration value="KY"/>
+      <xs:enumeration value="LA"/>
+      <xs:enumeration value="ME"/>
+      <xs:enumeration value="MD"/>
+      <xs:enumeration value="MA"/>
+      <xs:enumeration value="MI"/>
+      <xs:enumeration value="MN"/>
+      <xs:enumeration value="MS"/>
+      <xs:enumeration value="MO"/>
+      <xs:enumeration value="MT"/>
+      <xs:enumeration value="NE"/>
+      <xs:enumeration value="NV"/>
+      <xs:enumeration value="NH"/>
+      <xs:enumeration value="NJ"/>
+      <xs:enumeration value="NM"/>
+      <xs:enumeration value="NY"/>
+      <xs:enumeration value="NC"/>
+      <xs:enumeration value="ND"/>
+      <xs:enumeration value="OH"/>
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="OR"/>
+      <xs:enumeration value="PA"/>
+      <xs:enumeration value="RI"/>
+      <xs:enumeration value="SC"/>
+      <xs:enumeration value="SD"/>
+      <xs:enumeration value="TN"/>
+      <xs:enumeration value="TX"/>
+      <xs:enumeration value="UT"/>
+      <xs:enumeration value="VT"/>
+      <xs:enumeration value="VA"/>
+      <xs:enumeration value="WA"/>
+      <xs:enumeration value="WV"/>
+      <xs:enumeration value="WI"/>
+      <xs:enumeration value="WY"/>
+      <xs:enumeration value="AS"/>
+      <xs:enumeration value="FM"/>
+      <xs:enumeration value="GU"/>
+      <xs:enumeration value="MH"/>
+      <xs:enumeration value="MP"/>
+      <xs:enumeration value="PW"/>
+      <xs:enumeration value="PR"/>
+      <xs:enumeration value="VI"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResponseHdrStatusType">
+    <xs:annotation>
+      <xs:documentation>OK:
+This is a positive acknowledge. The order has been created in CHQ without error, and the tracking information is included in the returned XML.</xs:documentation>
+      <xs:documentation>Application Error:
+The order has not been created in CHQ. The error is rooted in the XML. Errors include, but are not limited to the following:
+1.	XML is not well formed
+2.	XML contains invalid data
+
+The ordering (calling) system should correct the XML data before sending to CHQ again. 
+</xs:documentation>
+      <xs:documentation>SystemError:
+The order has not been created in CHQ. However, the error is not caused by the XML, but is system related, such as backend database server is not available. The ordering (calling) system can resend the XML to CHQ at a later time.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="ApplicationError"/>
+      <xs:enumeration value="SystemError"/>
+      <xs:enumeration value="ReferentialIntegrityError"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="YesNoType">
+    <xs:annotation>
+      <xs:documentation>Simple type for Yes No (enum)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Y"/>
+      <xs:enumeration value="N"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NonEmptyString">
+    <xs:annotation>
+      <xs:documentation>Simple type representing a non empty string</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NonEmptyString80">
+    <xs:annotation>
+      <xs:documentation>Simple type representing a non empty string</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="80"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ResponseHdrType">
+    <xs:annotation>
+      <xs:documentation>Standard response header</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="ResponseHdrStatusType"/>
+      <xs:element minOccurs="0" name="Message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RequestHdrType">
+    <xs:annotation>
+      <xs:documentation>Standard request header</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SourceApp" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The name of the system sending message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TargetApp" type="string20">
+        <xs:annotation>
+          <xs:documentation>The Name of the system receiving the message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AppInstance" type="string10">
+        <xs:annotation>
+          <xs:documentation>An identifier obtained from FNC</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AppInstanceLogin" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>User name for authentication (managed in CHQ)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AppInstancePwd" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Password for authentication (managed in CHQ)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Timestamp">
+        <xs:annotation>
+          <xs:documentation>The timestamp from sending system</xs:documentation>
+          <xs:documentation>Formatting: ISO8601; sql type 126; yyyy-mm-ddThh:mi:ss.mmm (no spaces)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="MessageId" type="GUID">
+        <xs:annotation>
+          <xs:documentation>A unique identifier for the XML. Each unique message must have a unique MessageId.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CorrelationId" type="GUID">
+        <xs:annotation>
+          <xs:documentation>Not currently used</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="SequenceKey" type="GUID">
+        <xs:annotation>
+          <xs:documentation>Not currently used</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="SequenceNumber" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Not currently used</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute fixed="1.0" name="Version" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Based on schema</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute default="false" name="IsTest" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation>Not currently used; For development team to utilize in a QA-like environment.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="StandardResponse">
+    <xs:annotation>
+      <xs:documentation>The element sent for an simple response</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ResponseHdr" type="ResponseHdrType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestHdr" type="RequestHdrType"> </xs:element>
+</xs:schema>

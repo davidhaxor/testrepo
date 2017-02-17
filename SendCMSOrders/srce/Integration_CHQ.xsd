@@ -1,0 +1,2378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+2015/12/01 AT Removed FileTypeOption SimpleType, Updated FileTypeId type in UploadFileRq to xs:string 
+2015/09/03 DG Add FeeInformationRq
+2015/07/31 DG Add three new file types
+2015/07/07 DG Add CUScore to UCDPElements
+2015/07/07 AT Add new field to Create Order: BatchName
+2015/04/24 DG Add option for company name to be the borrower
+2015/03/23 DG Add new LoanPurpose, FileType, ContactType and PropertyType codes
+2015/03/19 DG Add ClosingDt to SendDates and order form
+2015/02/23 DG Add new touchpoint SendDates
+2014/12/23 DG Add new touchpoint SendCharges
+2014/10/27 DG Add new field to Create Order: OrderAttribute
+2014/09/30 DG Add new Field to Create Order: OutstandingLien
+2014/09/05 DR Changing county field length from 15 to 30
+2012/04/15 DR  add new filetype options   AVM,CUSTINV,DEED,LEGAL,ORDERSHEET,PLANSSPECS,PAPSL,QUESTIONS,RECONCILE, SEQUESTER
+        SURVEY
+        
+2012/03/30 DR added RetrieveDataFeedBackRQ and RetrieveDataFeedBackRS elements. Added IsDeliverFinal element to RetrieveOrderStatustouchpoint        
+2012/01/28 DR Added UCDP elements for final touchpoint postbacks
+
+2012/01/23 AS Added back serviceoption type for the time being till clients catch up with us
+            to remove replace serviceoption type with string type.
+            Added 50 more service placeholders to accomodate for more services getting added
+            meanwhile.
+
+2012/01/20 AS Removed serviceoption type to allow any service to be passed which is a valid 
+           service ID in the table.
+
+2012/01/18 Naren Added MaxOccurs to ServiceProviderID
+
+2012/01/18 Aninda Added Property Scan, Market Report and Value Sight.
+
+2012/01/17 Naren Added Service Provider ID
+
+2012/01/17 Lee Added Payment Party field
+
+2011/12/21 AS Added OneViewReviewRq for passing Goldman Sachs One View XML to CHQ.
+
+2011/11/02 Dwain Modified LoanNumber from [20] TO [60] 
+           Access Instruction from [1024] TO [3000]
+
+2011/11/01 Naren Added Loan Officer(PrsnPK) field
+
+2011/08/29 Naren Added Fannie and Freddie flow based SSR
+
+2011/08/15 JM Remove String Len restriction on FileName
+
+2011/08/09 JM Remove BorrowerContact from being required to satisfy reverse creation validation.
+
+2011/08/03 DC Update width
+
+            Loan Number FROM [20] TO [60]
+            Status Description FROM [80] TO [30]
+            Telephone FROM [10] TO [20]
+            Reference1 FROM [30] TO [50]
+            Reference2 FROM [30] TO [50]
+            GovernmentCaseNumber FROM [30] TO [50]
+            City FROM [50] TO [30]
+            Zip FROM [9] TO [10]
+            AccessInstruction FROM [512] TO [1024]
+            Unstructured Street Address FROM [40] TO [70]
+
+
+2011/08/03 DC Update the ZIP to allow 10 digits instead of 9
+
+2011/05/19 JM Added IsHighValue and SubLoanType fields to the order creation piece.
+
+2011/04/20 JM Add New Services 54-55
+
+2011/04/01 JM Add New services 43-53
+
+2011/03/15 JM Add SendInvoiceDataRQ Request 
+
+2011/02/11 JM added a IsBorrowerCC field to the Order information to denote when a borrower CC is used
+
+2010/12/15 JM update to not require some fields in datafeedback to assist when 
+the events that genereate them fail
+
+2010/11/7 KE update enumerations for additional service options, file types, channel options
+
+2010/11/1 DC Add the following
+
+      A new enum of FeedbackType
+      
+      <xs:enumeration value="GAARREVIEW"/>
+      <xs:enumeration value="AIXML"/>
+      <xs:enumeration value="MISMOXML"/>
+
+    Add attributes
+    
+      <xs:attribute name="FeedbackType" type="FeedbackType" use="required"/>
+      <xs:attribute name="FeedbackStatusCode" type="xs:string" use="required"/>
+      <xs:attribute name="FeedbackMessage" type="xs:string" use="required"/>
+
+
+2010/10/20 DC Add the Severity to the Firing. Fix serveral data types.    
+
+2010/8/14 DC  Add DataFeedbackRq and its content
+
+2010/7/29 JM  Add SendOrderCommentRQ and limit CommentType access levels to
+              customer and none.
+
+2010/7/28 DC  Add OrderCommentType, AddOrderCommentRQ, AddOrderCommentRS to 
+              accept the message
+
+2010/1/28 DC  Update the header type error 
+              UploadFileRq has a ResponseHdrType.  This should be a RequestHdrType.
+
+2010/1/8  DC  ADD
+
+              UploadFileRq
+              UploadFileType
+              FileTypeOption
+
+2009/6/29 DC  Add "Other" to LoanPurpose
+2009/6/18 DC  ApplicantMiddleInitial is set to optional 
+
+2009/6/02 DC  change to "CustomerPk" to minOccurs="0" />
+
+2009/6/02 DC  Update spelling of "LoanAmount"
+
+2009/5/20 DC  Add a new service 36 for "2075 - Property Inspection"
+
+              remove duplicate "      <xs:enumeration value="CNDHO" />"
+
+2009/5/14 DC  Correct nested header with  StatusUpdateType
+              Correct ResponseHdrType to RequestHdrType in RetrieveOrderStatusRq
+
+2009/5/14 DC  Update the header type of StatusUpdateRq (sending update from CHQ to LSO)
+              from ResponseHdrType to RequestHdrType
+
+              Add RetrieveOrderStatusRs for  returning xml for RetrieveOrderStatusR.
+
+2009/5/12 DC
+              Add StatusUpdateRq for passing status update to LOS.
+              Add ReverseCreateOrderRq for passing order created in CHQ to LOS.
+              Add RetrieveOrderStatusRq for LOS requesting status              
+
+
+2009/5/6  DC  Add MCRequired in CreateOrderRqType for 1004MC
+              Add City in AddressInfoType
+              Add AppInstanceLogin and AppInstancePwd; remove UserId and Password form herader
+              Add "L" for Loan Officer to ContactTypeIdOption
+
+2014/07/07    Add Street Address, City, State, Zip, County to Order Create 
+
+2014/09/10    Add Loan Classification 
+-->
+<xs:schema targetNamespace="http://fncinc.com/CHQ" elementFormDefault="qualified" xmlns="http://fncinc.com/CHQ" xmlns:mstns="http://fncinc.com/CHQ" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:in="http://fncinc.com/Integration.xsd" attributeFormDefault="unqualified">
+  <xs:import namespace="http://fncinc.com/Integration.xsd" schemaLocation="Integration.xsd"/>
+  <xs:complexType name="CreateOrderRqType">
+    <xs:sequence>
+      <xs:element name="GroupId" type="xs:int" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A Unique Identifier (PK) for the Group (within the CHQ Client’s organization) that is associated with or responsible for this order. The full list of PKs for all client groups will be provided to the client by FNC.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProcPrsnPk" type="xs:int" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A Unique Identifier (PK) for the Processor that is associated with or responsible for this order. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProcComments" type="in:string1024" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation> Processor Comments </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderInfo" type="OrderInfoType" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Includes information related to the order, such as Loan Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PropertyAddress" type="AddressInfoType" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Includes information related to the Property Address, such as Street # and Prefix</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PropertyTypeId" type="in:string10" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Type of property (Examples: Condo Hotel, Condominium, SFR Attached)</xs:documentation>
+          <xs:documentation>Enumeration details contained in Editable Dropdown UI</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LoanPurposeId" type="LoanPurposeOption" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Purpose for the Loan (Examples: Purchase, Refinance)</xs:documentation>
+          <xs:documentation>Enumeration details contained in LoanPurposeOption</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HpmlOrder" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>whether the order is high Priced mortagage loan (True/False)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OccupancyTypeId" type="OccupancyTypeOption" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Property’s occupancy type (Examples: Investor, Primary Residence)</xs:documentation>
+          <xs:documentation>Enumeration details contained in OccupancyTypeOption</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OwnerEstimate" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Owner’s Estimate of value of the property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SalesPrice" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Sales Price for the property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OriginalPurchasePrice" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Original Purchase Price of the Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LoanAmount" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Requested Loan Amount</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OutstandingLien" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Total Amount of Lien on Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomerPrice" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Fee CHQ client is charging its customer to fulfill the loan request (if applicable)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProviderFee" type="xs:decimal" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Fee CHQ client will pay the Service Provider to fulfill service requested</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceId" type="ServiceOption" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Enumeration details contained in ServiceOption</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceProviderID" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Service Provider ID</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BorrowerContact" type="ContactType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Includes Information related to the borrower, such as First Name and Last Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AlternateContact" type="AltContactType" minOccurs="0" maxOccurs="20">
+        <xs:annotation>
+          <xs:documentation>Includes Information related to an Alternate Contact, such as First Name and Last Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MCRequired" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to denote that the 1004MC addendum is required for this order.  (Pass a value of 1 if it is an Rush order. Otherwise, pass nothing or a 0.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsBorrowerCC" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Denotes where the borrower's Credit Card is billed previously for the order (1 if it is charged. Otherwise, pass nothing or a 0.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentParty" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to trigger credit card collections email and to set the status of the order to "WAITING FOR PAYMENT"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ParentDocID" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to assign child services</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ByPassDupChk" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Bypass duplicate check flag - True/False 1/0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UsePreviousServiceProvider" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Use Previous Service Provider - True/False 1/0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UsePreviousReviewer" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Use Previous Reviewer - True/False 1/0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UsePreviousOrderAttributes" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Use Previous Order Attributes - True/False 1/0</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomerID" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>CustomerID to be associated with the order.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BatchName" type="in:string50" minOccurs="0" maxOccurs="1" default="">
+        <xs:annotation>
+          <xs:documentation>Optional field for Batch association</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOrderRs">
+    <xs:annotation>
+      <xs:documentation>This is a synchronous call.  The response is expected to return a FolderID and DocID for later reference.  The response may also return a processing error and message. The Client System should store the Folder ID and Doc Id in its system.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OneViewReviewRqType">
+    <xs:sequence>
+      <xs:element name="LoanNumber" type="in:string60" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Loan Number for One View Review</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReconciledValue" type="xs:int" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Reconciled Value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReviewDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Review Date</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Comments" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Comment</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CommentType" type="in:string50" fixed="Servicer">
+        <xs:annotation>
+          <xs:documentation>Comment Type</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOneViewReviewRs">
+    <xs:annotation>
+      <xs:documentation>The response is expected to return a LoanRevSummaryId, FolderID and DocID for later reference.  The response may also return a processing error and message. The Client System should store the Folder ID and Doc Id in its system.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="Tracking" type="OneViewTrackingType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OneViewTrackingType">
+    <xs:annotation>
+      <xs:documentation>Order details to provide tracking between LOS and CHQ</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LoanRevSummaryId" type="xs:int" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A One View Review ID used in CMS.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FolderId" type="in:string20" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A tracking number used in CMS.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocId" type="in:string20" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A tracking number used in CMS. DocId is also used for later status updates. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LoanNumber" type="in:string60" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Loan Number; (Echoing back the received Loan Number)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UploadFileRq">
+    <xs:annotation>
+      <xs:documentation>A file uplaod request to CMS</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="Tracking" type="UploadFileType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UploadFileType">
+    <xs:annotation>
+      <xs:documentation>Provide information of the file to be uploaded to FNC</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DocId" type="in:string20" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A tracking number used in CMS. DocId is also used for later status updates. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FileTypeId" type="xs:string" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            Enumeration Description
+            AP4REV		  Appraisal for Review
+            APINV		    Invoice
+            APSL		    Appraisal Report
+            BPO		      BPO Report
+            COMPLT		  Compliance Letter
+            IPSL		    Inspection Report
+            MISMO       MISMO XML
+            OTHER		    Other Documents
+            PRCHAGRMT	  Purchase Agreement
+            QCV_APSL	  QC Vigilance Report
+            REVPDF		  Review
+            AVM         AVM
+            CUSTINV     Customer Invoice
+            DEED        Deed
+            LEGAL       Legal
+            ORDERSHEET  Order Sheet
+            PLANSSPECS  Plans and Specs
+            PAPSL       Previous Appraisal
+            QUESTIONS   Questionnaires
+            RECONCILE   Reconciliation
+            SEQUESTER   Sequestered - Resubmission
+            SURVEY      Surveys
+            TPSL        Title Document
+            VALIDCHK    Validity Check
+            HOACERT     HOA Certification
+            AERIAL      Aerial Photo
+            AUTHLETTER  Authorization Letter
+            COSTEST     Cost Breakdown or Estimate
+            FLOODMAP    Flood Map
+            GOVREC      Government Records
+            INEXSTATE   Income/Expense Statements
+            INSPCHECK   Inspection Checklist
+            INDEPDOC    Internal Department Document
+            RENTROLL    Leases/Rent Roll
+            BROCHRE     Listing/Marketing Brochure
+            OTHERBID    Other Bid Info
+            OTHERENVIR  Other Environmental Report
+            PHOTO       Photo
+            SKETCH      Property Sketch
+            SALEDATA    Sales Data
+            SITEPLAN    Site Plan
+            SUPPLEMENT  Supplement
+            TAX         Tax Files
+            APPEAL      Appeal
+            EVALUATION  Evaluation
+            APSLREST    Restricted Appraisal
+            WORKFILE    Work File
+            WI          Wiring Instructions
+            CPL         Closing Protection Letter
+            REVS        Review Summary
+            VINV        Vendor Invoice
+            CNSTRPT     Construction Report
+            SUPDOC      Supporting Documents
+            PROPFIN     Property Financials
+            PRIRPTS     Prior Reports
+            ADDINFO     Additional Information
+            ENVQUE      Environmental Questionnaire
+            ALTDISC     Alternative Disclosure Form
+            CNSRPTCD    Construction Report Card
+            LOADINV     Loan Admin Invoice
+            REVRPT2     Review Report
+            ENVRPT      Environmental Report
+            AREAMAP     Area/Street Map
+            COMPDATA    Supporting Comp Data
+            DATAREP     Data Verify Report
+            DISDOC      Disaster Document
+            DISP        Dispute Form
+            EVAL        Desktop Valuation Report
+            FIELDREV    Field Review
+            OADI_INV    Appraisal Invoice
+            QCDATA      QC Additional Data
+            RBELL       Red Bell Appraisal
+            RCPT        Receipt
+            RQREPORT    Real Quest Report
+            TITLECOM    Title Commitment
+            UNDER       Underwriting Checklist
+            WATCHLIST   Watch List
+          </xs:documentation>
+        </xs:annotation>        
+      </xs:element>
+      <xs:element name="FileName" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A treference name about this file. It is not used in CMS, but for the sender to track.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OrderTrackingType">
+    <xs:annotation>
+      <xs:documentation>Order details to provide tracking between LOS and CHQ</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FolderId" type="in:string20" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A tracking number used in CMS.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocId" type="in:string20" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A tracking number used in CMS. DocId is also used for later status updates. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LoanNumber" type="in:string60" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Loan Number; (Echoing back the received Loan Number)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatusUpdateType">
+    <xs:sequence>
+      <xs:element name="DocId" type="in:string20" minOccurs="1"/>
+      <xs:element name="LoanNumber" type="in:string60" minOccurs="1"/>
+      <xs:element name="StatusId" type="in:string10" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            StatusID	Description
+            M	Accepted
+            AC	Provider Accepts w/ Condition
+            D	Draft Received from Provider
+            C	Cancelled – General
+            CD	Cancelled – Duplicate Request
+            CR	Cancelled – By Request
+            CE	Cancelled – Refund Due
+            LA	Approved – As Is
+            LC	Approved – With Conditions
+            LD	Declined
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Description" type="in:string30" minOccurs="1"/>
+      <xs:element name="ReportUrl" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>URL linking to order related documents, provided when the order is closed (L status)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+
+      <xs:element name="UCDPReadyFileURL" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Link to generate UCDP Ready File</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="FannieSSR" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Flow Based Fannie and Freddie SSR </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FreddieSSR" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Flow Based Fannie and Freddie SSR</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FHASSR" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Flow Based FHA SSR</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InvoiceUrl" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Link to order invoice if present</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PropertyScan" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Link to Property Scan</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MarketReport" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Link to Market Report</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ValueSight" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Link to Value Sight</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="UCDPElements" type="UCDPInfo" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Returns the UCDP Info displayed on the ucdp tab</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EADElements" type="EADInfo" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Returns the EAD Info displayed on the EAD tab</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsPreDelivery" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Returns whether the order was a predelivery or not</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AssociatedFiles" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Each Associated File based on File Visibility</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="FileType" type="xs:string" use="required"/>
+          <xs:attribute name="FileUrl" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusUpdateRq">
+    <xs:annotation>
+      <xs:documentation>The Status Updates Touch Point originates from CHQ. This update is triggered when the order’s status is changed in CHQ. Order updates are transferred from CHQ to the Client System (ordering system).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = CHQ
+              TargetApp = LOS
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="StatusUpdate" type="StatusUpdateType"/>
+        <xs:element name="IsDeliverFinal" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Flag to determine whether or not to deliver the final status update</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ContactType">
+    <xs:annotation>
+      <xs:documentation>
+        Strip Spaces and Special Characters from Phone and FAX Numbers:
+        Only the 10 digits of the phone and fax number should be sent in the XML. Any spaces or special characters used for formatting should be stripped from the value before being used in the XML request.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="in:NonEmptyString" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Contact’s Full Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactTypeId" type="ContactTypeIdOption" minOccurs="1" default="G">
+        <xs:annotation>
+          <xs:documentation>Enumeration details contained in ContactTypeIDOption</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StreetAddress" type="in:string50" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>StreetAddress Code for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="City" type="in:string50" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>City Code for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="State" type="in:State" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>State for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Zip" type="in:ZipPlus4" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Zip Code for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="County" type="in:string30" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>County for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Phone" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Contact’s Phone Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PhoneExt" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Contact’s Phone Extension</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AltPhone" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Alternate Phone Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AltPhoneExt" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Alternate Phone Number Extension</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CellPhone" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Cell Phone Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Pager" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Pager</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Fax" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Fax Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Email" type="in:string240" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>E-mail Address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CanContact" type="xs:boolean" minOccurs="0" default="false">
+        <xs:annotation>
+          <xs:documentation>Can be Contacted</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AltContactType">
+    <xs:annotation>
+      <xs:documentation>
+        Strip Spaces and Special Characters from Phone and FAX Numbers:
+        Only the 10 digits of the phone and fax number should be sent in the XML. Any spaces or special characters used for formatting should be stripped from the value before being used in the XML request.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="in:NonEmptyString80" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Contact’s Full Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactTypeId" type="ContactTypeIdOption" minOccurs="1" default="G">
+        <xs:annotation>
+          <xs:documentation>Enumeration details contained in ContactTypeIDOption</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StreetAddress" type="in:string50" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>StreetAddress Code for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="City" type="in:string50" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>City Code for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="State" type="in:State" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>State for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Zip" type="in:ZipPlus4" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Zip Code for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="County" type="in:string30" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>County for Contact</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Phone" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Contact’s Phone Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PhoneExt" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Contact’s Phone Extension</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AltPhone" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Alternate Phone Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AltPhoneExt" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Alternate Phone Number Extension</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CellPhone" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Cell Phone Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Pager" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Pager</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Fax" type="in:TelephoneNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Fax Number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Email" type="in:string240" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>E-mail Address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CanContactAlt" type="xs:boolean" minOccurs="0" default="false">
+        <xs:annotation>
+          <xs:documentation>Can be Contacted</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderInfoType">
+    <xs:sequence>
+      <xs:element name="LoanNumber" type="in:string60" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Loan Number for order being placed</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Reference1" type="in:string50" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Additional Order Identifier the client wishes to send with the order</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Reference2" type="in:string50" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Additional Order Identifier the client wishes to send with the order</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsRushOrder" type="xs:boolean" minOccurs="0" default="false">
+        <xs:annotation>
+          <xs:documentation>Used to denote an order is a Rush order. (Pass a value of 1 if it is an Rush order. Otherwise, pass nothing or a 0.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsFHA" type="xs:boolean" minOccurs="0" default="false">
+        <xs:annotation>
+          <xs:documentation>(Depreciated USE SubLoanType Instead)  Used to denote an order is an FHA order. (Pass a value of 1 if it is an FHA order. Otherwise, pass nothing or a 0.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubLoanType" type="SubLoanTypeOption" minOccurs="0" >
+        <xs:annotation>
+          <xs:documentation>Use this for setting different types of government loan types.  Depreciates IsFHA type.  Use this node instead.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LoanClassificationCode" type="in:string10" minOccurs="0" maxOccurs="1" default="">
+        <xs:annotation>
+          <xs:documentation>Used to denote an order an orders Loan Classification. Blank value or absence of node results in NLC (No Loan Classification).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrderAttributeCode" type="in:string10" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Used to apply Order Attributes to an order. Invalid values will prevent the order from being created.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CostCenterCode" type="in:string10" minOccurs="0" maxOccurs="1" default="">
+        <xs:annotation>
+          <xs:documentation>Used to denote an order an orders Loan Classification. Blank value or absence of node results in NLC (No Loan Classification).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      
+      <xs:element name="IsHighValue" type="xs:boolean" minOccurs="0" default="false">
+        <xs:annotation>
+          <xs:documentation>Used to denote a property as considered to be a high value property. (Pass a value of 1 if it is high value. Otherwise, pass nothing or a 0.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="GovernmentCaseNumber" type="in:string50" minOccurs="0" default="">
+        <xs:annotation>
+          <xs:documentation>Case Number for FHA, etc orders</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DueToCustomer" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Date the Order is due back to the Client’s customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DueFromVendor" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Date the Order is due from the service provider (Appraiser/Broker). (NOTE: If this value is not passed, the date will be calculated based on the turn times maintained in CHQ.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ClosingDt" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The expected closing date of the loan</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomerPk" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A Unique Identifier (PK) for the Customer associated with this order. The list of PKs for all customers will be provided to the client by FNC.</xs:documentation>
+          <xs:documentation>If no customer is to be assigned to the order pass 0 (zero) as the value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="LoanOfficer" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A Unique Identifier (PK) for the Loan Officer associated with this order. The list of PKs for all Loan Officers will be provided to the client by FNC.</xs:documentation>
+          <xs:documentation>If no Loan Officer is to be assigned to the order pass 0 (zero) as the value</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="Channel" type="ChannelOption" minOccurs="1" default="1">
+        <xs:annotation>
+          <xs:documentation>Channel for which the order is placed (Example: Retail, Wholesale)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ApplicantFirstName" type="in:string30" minOccurs="0" default="">
+        <xs:annotation>
+          <xs:documentation>Borrower’s First Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ApplicantMiddleInitial" type="in:string1" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Borrower’s Middle Initial</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ApplicantLastName" type="in:string30" minOccurs="0" default="">
+        <xs:annotation>
+          <xs:documentation>Borrower’s Last Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ApplicantCompanyName" type="in:string30" minOccurs="0" default="">
+        <xs:annotation>
+          <xs:documentation>Borrower’s Company Name. Either Company name or first and last name are required for the borrower</xs:documentation>
+        </xs:annotation>
+      </xs:element>    
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AddressInfoType">
+    <xs:annotation>
+      <xs:documentation>
+        When UnstructredStreetAddress is present,
+        FNC will use the unstructuced data instead.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RequireNormalization" type="xs:boolean" minOccurs="1" default="true">
+        <xs:annotation>
+          <xs:documentation>Used to denote if address requires normalization. If the address has been normalized and therefore parsed into separate fields below (StreetNo, Prefix, Street and Suffix), then RequireNormalization should be 0. If the address requires normalization and will be passed in one field UnstructuredStreetAddress), then the value should be 1. If 1, CHQ will normalize the address and store in CHQ appropriately.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnstructuredStreetAddress" type="in:string70" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Pass Street Address in this field if normalization is required</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StreetNo" type="in:string10" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Street No portion of Street Address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Prefix" type="in:string10" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Prefix portion of Street Address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Street" type="in:string30" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Street Name for Street Address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Suffix" type="in:string10" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Suffix for Street Address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnitNo" type="in:string10" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Unit No for Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="City" type="in:string30" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>City for Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="County" type="in:string30" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>County for Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="State" type="in:State" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>State for Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Zip" type="in:ZipPlus4" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Zip Code for Property</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccessInstruction" type="in:string3000" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Special Instructions to be communicated to the Service Provider (Appraiser/Broker)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateOrderRq">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Order" type="CreateOrderRqType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OneViewReviewRq">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="OneViewReview" type="OneViewReviewRqType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="LoanPurposeOption">
+    <xs:annotation>
+      <xs:documentation>
+        Enumeration	Description
+        ACQ		  Acquisition
+        AddCo   Additional Collateral
+        AMAN    Asset Management
+        BFR     Bankruptcy/Foreclosure/Rehab
+        BsLOC   Business LOC
+        BusLo   Business Loan
+        Cash		Cash Out
+        ChgCo   Change in Collateral
+        CPERM   Construction - Permanent
+        HELOC   HELOC
+        NCash		No Cash Out - Refi
+        Ncon    New Construction
+        Other   Other
+        PreFo   Pre-Foreclosure
+        Purc    Purchase
+        RCVY    Recovery
+        Refi    Refinance
+        RenCa   Renewal Cash-Out
+        Renew   Renewal
+        RenLo   Renewal Loss-Share
+        REOLS   REO Loss-Share
+        RMon    Routine Monitoring
+        Work    Workout
+        RENOV   Renovation–Perm
+        CRTLN   Criticized Loan
+        PRTCP   Participation
+        PURMN   Purchase Money
+        SBULN   Small Business
+        MOD     Modification
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value=""/>
+      <xs:enumeration value="ACQ"/>
+      <xs:enumeration value="AddCo" />
+      <xs:enumeration value="AMAN" />
+      <xs:enumeration value="BFR" />
+      <xs:enumeration value="BsLOC" />
+      <xs:enumeration value="BusLo" />
+      <xs:enumeration value="Cash" />
+      <xs:enumeration value="ChgCo" />
+      <xs:enumeration value="CPERM" />
+      <xs:enumeration value="HELOC" />
+      <xs:enumeration value="NCash"/>
+      <xs:enumeration value="NCon" />
+      <xs:enumeration value="Other"/>
+      <xs:enumeration value="PreFo" />
+      <xs:enumeration value="Purc" />
+      <xs:enumeration value="RCVY" />
+      <xs:enumeration value="Refi" />
+      <xs:enumeration value="RenCa" />
+      <xs:enumeration value="Renew" />
+      <xs:enumeration value="RenLo" />
+      <xs:enumeration value="REOLS" />
+      <xs:enumeration value="RMon" />
+      <xs:enumeration value="Work" />
+      <xs:enumeration value="RENOV" />
+      <xs:enumeration value="CRTLN" />
+      <xs:enumeration value="PRTCP" />
+      <xs:enumeration value="PURMN" />
+      <xs:enumeration value="SBULN" />
+      <xs:enumeration value="MOD" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OccupancyTypeOption">
+    <xs:annotation>
+      <xs:documentation>
+        Enumeration	Description
+        INV  		Investor
+        OTHER		Other
+        PR   		Primary Residence
+        SH   		Second Home
+        VAC     Vacancy
+        OWN     Owner
+        TEN     Tenant
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value=""/>
+      <xs:enumeration value="INV"/>
+      <xs:enumeration value="OTHER"/>
+      <xs:enumeration value="PR"/>
+      <xs:enumeration value="SH"/>
+      <xs:enumeration value="VAC"/>
+      <xs:enumeration value="OWN"/>
+      <xs:enumeration value="TEN"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ServiceOption">
+    <xs:annotation>
+      <xs:documentation>
+        Enumeration	Description
+        1		1004D - Update/Completion
+        2		1004 - URAR
+        3		1004 with 1007
+        4		1004 with 216
+        5		1004 with 216 and 1007
+        6		1004C Manufactured Home
+        7		1007 - Rent Schedule Comp.
+        8		1025 - Sm. Res. Inc.
+        9		1025 with 216
+        10		1073 - Ind. Condo Unit
+        11		1073 with 1007
+        12		1073 with 216
+        13		1073 with 216, 1007
+        14		1075 - Ext. Ind. Condo
+        15		1075 with 1007
+        16		1075 with 216
+        17		1075 with 216,1007
+        18		2000 - 1 Unit Field Review
+        19		2000A - 2 to 4 Unit Field Review
+        20		2055 Ext with 1007
+        21		2055 Ext with 216
+        22		2055 Ext with 216, 1007
+        23		2055 Exterior Residental
+        24		2070 - Cond and Mkt Report
+        25		2090 - Co-Op Interest
+        26		2095 - Co-Op Ext Interest
+        27		216 - Operating Inc.
+        28		442 - Satisfactory Certificate
+        29		Land Appraisal Report
+        30		Recertification of Value
+        31		BPO - Interior
+        32		BPO - Exterior
+        33		2006 - Short Form Review
+        34		Field Review
+        35		Desk Review
+        36		2075 - Property Inspection
+        37		Compliance Inspection Report
+        38		Desktop Restricted Use Report
+        39		Photo Only
+        40		2055 Interior
+        41		1007 w/ 216
+        42		Computer Assisted Appraisal
+        43	  1004C w/ 216 and 1007
+        44	  1025 w/ 1007
+        45  	1025 w/ 216 and 1007
+        46	  Addendum Letter
+        47	  Reassessment of Value
+        48	  1004C with 1007
+        49	  1004C with 216
+        50	  Construction Draw
+        51	  REO Addendum
+        52	  ERC - Relocation
+        53	  Narrative
+        54	  Commercial
+        55	  Request for Bid
+        56	  FNMA BPO Exterior
+        57	  FNMA BPO Interior
+        58	  1004 with REO Addendum
+        59	  FNC BPO - Interior
+        60	  2045 - Master Residential Appraisal
+        61	  Appraiser Assisted AVM
+        62	  AVM
+        63	  Third Party Originator Review
+        64	  2045A - Master Residential Appraisal - Amendment
+        65	  Other
+        66	  CDNA Service
+        67	  1004C with REO Addendum
+        68	  1025 with REO Addendum
+        69	  1073 with REO Addendum
+        70	  Revision
+        71	  FNC BPO - Exterior
+        72	  PR Sitex
+        73	  HistoryPro
+        74	  Initial Review
+        75	  1004 No Cost Approach
+        76	  1004 Cost Approach
+        77	  1004 No Cost with 6 Month Liquidation Value
+        78	  1004D Update
+        79	  1004D Completion
+        80	  LOANSAFE CM
+        81	  GEOAVM
+        82	  External Reconciliation
+        83	  Internal Reconciliation
+        84	  Comp Search
+        85	  Work to Date
+        86	  Partial Inspection Fee
+        87	  Interior Inspection
+        88	  Court Testimony
+        89	  FNMA 2-4 Family Field Review Exterior
+        90	  FNMA 2-4 Family Field Review Interior
+        91	  FNMA One Unit Field Review Exterior
+        92	  FNMA One Unit Field Review Interior
+        93	  Investigative Enhanced Review
+        94	  Investigative Review
+        95	  Investigative Review Following Retrospective Appraisal
+        96	  MLS Data and Assessor Verification
+        99	  Automated Review
+        97    Service Placeholder
+        98    Service Placeholder
+        100-150 Service Placeholders
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+      <xs:enumeration value="10"/>
+      <xs:enumeration value="11"/>
+      <xs:enumeration value="12"/>
+      <xs:enumeration value="13"/>
+      <xs:enumeration value="14"/>
+      <xs:enumeration value="15"/>
+      <xs:enumeration value="16"/>
+      <xs:enumeration value="17"/>
+      <xs:enumeration value="18"/>
+      <xs:enumeration value="19"/>
+      <xs:enumeration value="20"/>
+      <xs:enumeration value="21"/>
+      <xs:enumeration value="22"/>
+      <xs:enumeration value="23"/>
+      <xs:enumeration value="24"/>
+      <xs:enumeration value="25"/>
+      <xs:enumeration value="26"/>
+      <xs:enumeration value="27"/>
+      <xs:enumeration value="28"/>
+      <xs:enumeration value="29"/>
+      <xs:enumeration value="30"/>
+      <xs:enumeration value="31"/>
+      <xs:enumeration value="32"/>
+      <xs:enumeration value="33"/>
+      <xs:enumeration value="34"/>
+      <xs:enumeration value="35"/>
+      <xs:enumeration value="36"/>
+      <xs:enumeration value="37"/>
+      <xs:enumeration value="38"/>
+      <xs:enumeration value="39"/>
+      <xs:enumeration value="40"/>
+      <xs:enumeration value="41"/>
+      <xs:enumeration value="42"/>
+      <xs:enumeration value="43"/>
+      <xs:enumeration value="44"/>
+      <xs:enumeration value="45"/>
+      <xs:enumeration value="46"/>
+      <xs:enumeration value="47"/>
+      <xs:enumeration value="48"/>
+      <xs:enumeration value="49"/>
+      <xs:enumeration value="50"/>
+      <xs:enumeration value="51"/>
+      <xs:enumeration value="52"/>
+      <xs:enumeration value="53"/>
+      <xs:enumeration value="54"/>
+      <xs:enumeration value="55"/>
+      <xs:enumeration value="56"/>
+      <xs:enumeration value="57"/>
+      <xs:enumeration value="58"/>
+      <xs:enumeration value="59"/>
+      <xs:enumeration value="60"/>
+      <xs:enumeration value="61"/>
+      <xs:enumeration value="62"/>
+      <xs:enumeration value="63"/>
+      <xs:enumeration value="64"/>
+      <xs:enumeration value="65"/>
+      <xs:enumeration value="66"/>
+      <xs:enumeration value="67"/>
+      <xs:enumeration value="68"/>
+      <xs:enumeration value="69"/>
+      <xs:enumeration value="70"/>
+      <xs:enumeration value="71"/>
+      <xs:enumeration value="72"/>
+      <xs:enumeration value="73"/>
+      <xs:enumeration value="74"/>
+      <xs:enumeration value="75"/>
+      <xs:enumeration value="76"/>
+      <xs:enumeration value="77"/>
+      <xs:enumeration value="78"/>
+      <xs:enumeration value="79"/>
+      <xs:enumeration value="80"/>
+      <xs:enumeration value="81"/>
+      <xs:enumeration value="82"/>
+      <xs:enumeration value="83"/>
+      <xs:enumeration value="84"/>
+      <xs:enumeration value="85"/>
+      <xs:enumeration value="86"/>
+      <xs:enumeration value="87"/>
+      <xs:enumeration value="88"/>
+      <xs:enumeration value="89"/>
+      <xs:enumeration value="90"/>
+      <xs:enumeration value="91"/>
+      <xs:enumeration value="92"/>
+      <xs:enumeration value="93"/>
+      <xs:enumeration value="94"/>
+      <xs:enumeration value="95"/>
+      <xs:enumeration value="96"/>
+      <xs:enumeration value="97"/>
+      <xs:enumeration value="98"/>
+      <xs:enumeration value="99"/>
+      <xs:enumeration value="100"/>
+      <xs:enumeration value="101"/>
+      <xs:enumeration value="102"/>
+      <xs:enumeration value="103"/>
+      <xs:enumeration value="104"/>
+      <xs:enumeration value="105"/>
+      <xs:enumeration value="106"/>
+      <xs:enumeration value="107"/>
+      <xs:enumeration value="108"/>
+      <xs:enumeration value="109"/>
+      <xs:enumeration value="110"/>
+      <xs:enumeration value="111"/>
+      <xs:enumeration value="112"/>
+      <xs:enumeration value="113"/>
+      <xs:enumeration value="114"/>
+      <xs:enumeration value="115"/>
+      <xs:enumeration value="116"/>
+      <xs:enumeration value="117"/>
+      <xs:enumeration value="118"/>
+      <xs:enumeration value="119"/>
+      <xs:enumeration value="120"/>
+      <xs:enumeration value="121"/>
+      <xs:enumeration value="122"/>
+      <xs:enumeration value="123"/>
+      <xs:enumeration value="124"/>
+      <xs:enumeration value="125"/>
+      <xs:enumeration value="126"/>
+      <xs:enumeration value="127"/>
+      <xs:enumeration value="128"/>
+      <xs:enumeration value="129"/>
+      <xs:enumeration value="130"/>
+      <xs:enumeration value="131"/>
+      <xs:enumeration value="132"/>
+      <xs:enumeration value="133"/>
+      <xs:enumeration value="134"/>
+      <xs:enumeration value="135"/>
+      <xs:enumeration value="136"/>
+      <xs:enumeration value="137"/>
+      <xs:enumeration value="138"/>
+      <xs:enumeration value="139"/>
+      <xs:enumeration value="140"/>
+      <xs:enumeration value="141"/>
+      <xs:enumeration value="142"/>
+      <xs:enumeration value="143"/>
+      <xs:enumeration value="144"/>
+      <xs:enumeration value="145"/>
+      <xs:enumeration value="146"/>
+      <xs:enumeration value="147"/>
+      <xs:enumeration value="148"/>
+      <xs:enumeration value="149"/>
+      <xs:enumeration value="150"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ChannelOption">
+    <xs:annotation>
+      <xs:documentation>
+        Enumeration	Description
+        1		Retail
+        2		Wholesale
+        4		Correspondent
+        5		Servicing
+        6		Foreclosure
+        7		Quality Control
+        8		Quality Assurance
+        9		REO
+        10		Modifications
+        11		Other
+        16    Acquisition
+        20 Commercial
+        21 Commercial/RIMS
+        22  CLC-Retail/Consumer
+        23  Loss Mitigation
+        25  Bankruptcy
+        26 Secondary Market
+        27 Evaluation
+        28 Small Business
+        29 Business Banking
+        30 Middle Market / Corporate
+        31vHealth Care Lending
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+      <xs:enumeration value="10"/>
+      <xs:enumeration value="11"/>
+      <xs:enumeration value="16"/>
+      <xs:enumeration value="20"/>
+      <xs:enumeration value="21"/>
+      <xs:enumeration value="22"/>
+      <xs:enumeration value="23"/>
+      <xs:enumeration value="25"/>
+      <xs:enumeration value="26"/>
+      <xs:enumeration value="28"/>
+      <xs:enumeration value="29"/>
+      <xs:enumeration value="30"/>
+      <xs:enumeration value="31"/>
+      <!--<xs:enumeration value="27"/>-->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ContactTypeIdOption">
+    <xs:annotation>
+      <xs:documentation>
+        Enumeration	Description
+        E		Entry
+        O		Owner
+        B		Borrower
+        G		General
+        C		Contact
+        S		Seller
+        L   Loan Officer
+        CB  Co-Borrower
+        LA  Listing Agent
+        BA  Buyers Agent
+        BK  Broker
+        BY  Buyer
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E" />
+      <xs:enumeration value="O" />
+      <xs:enumeration value="B" />
+      <xs:enumeration value="G" />
+      <xs:enumeration value="C" />
+      <xs:enumeration value="S" />
+      <xs:enumeration value="L" />
+      <xs:enumeration value="CB" />
+      <xs:enumeration value="LA" />
+      <xs:enumeration value="BA" />
+      <xs:enumeration value="BK" />
+      <xs:enumeration value="BU" />
+      <xs:enumeration value="BY" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SubLoanTypeOption">
+    <xs:annotation>
+      <xs:documentation>
+        203	  203(k)
+        FHA	  FHA
+        USDA	USDA
+        VA	  VA
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="203"/>
+      <xs:enumeration value="FHA"/>
+      <xs:enumeration value="USDA"/>
+      <xs:enumeration value="VA"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- use this to request a release from Waiting for Disclosures-->
+  <xs:element name="ReleaseDisclosureRq">
+    <xs:annotation>
+      <xs:documentation>The request to remove an order from Waiting For Disclosure Status.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ReleaseDisclosureRs">
+    <xs:annotation>
+      <xs:documentation>Response containing DataFeedback information</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- use this to request DataFeedback-->
+  <xs:element name="RetrieveDataFeedbackRq">
+    <xs:annotation>
+      <xs:documentation>The DataFeedBack Request originates from the LOS.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  returning xml for RetrieveOrderStatusRq -->
+  <xs:element name="RetrieveDataFeedbackRs">
+    <xs:annotation>
+      <xs:documentation>Response containing DataFeedback information</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="DataFeedback" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!--  use this to request status, CHQ will seed back status update 
+      we will use doc-id as our preference mathod to locate order
+-->
+  <xs:element name="RetrieveOrderStatusRq">
+    <xs:annotation>
+      <xs:documentation>The Status Updates Touch Point originates from the LOS. This update is triggered when the order’s status status request is received by CHQ.  Order updates are transferred from CHQ to the Client System (ordering system).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="IsDeliverFinal" type="xs:boolean" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- When an order was created in CHQ, we will post this back to LOS. We expect a standard Ack message -->
+  <xs:element name="ReverseCreateOrderRq">
+    <xs:annotation>
+      <xs:documentation>
+        The Ordering Process originates with the creation of an order placed in CHQ.  The order is transferred from CHQ and initiates a request to “Create Order” in the LOS.
+      </xs:documentation>
+      <xs:documentation>Note:  If orders will not be initiated within CHQ this section is not a requirement.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = CHQ
+              TargetApp = LOS
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Order" type="CreateOrderRqType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!--  returning xml for RetrieveOrderStatusRq -->
+  <xs:element name="RetrieveOrderStatusRs">
+    <xs:annotation>
+      <xs:documentation>Response containing order status information</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="StatusUpdate" type="StatusUpdateType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- comment -->
+  <xs:complexType name="OrderCommentType">
+    <xs:annotation>
+      <xs:documentation>Common type for order comments</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Author" type="in:NonEmptyString"/>
+      <xs:element name="PostDate" type="xs:dateTime"/>
+      <xs:element name="Comment" type="in:NonEmptyString"/>
+      <xs:element name="ViewRights">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Customer"/>
+            <xs:enumeration value="ServiceProvider"/>
+            <xs:enumeration value="Both"/>
+            <xs:enumeration value="None"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Subject" type="xs:string" minOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="DocId" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:element name="AddOrderCommentRQ">
+    <xs:annotation>
+      <xs:documentation>Add comment Request</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="Comment" type="OrderCommentType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AddOrderCommentRS">
+    <xs:annotation>
+      <xs:documentation>Add comment Response</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="CommentId" type="in:GUID" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="SendOrderCommentRQ">
+    <xs:annotation>
+      <xs:documentation>Sending customer Comment</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="Comment" type="OrderCommentType"/>
+        <xs:element name="CommentId" type="in:GUID"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+
+  <xs:element name="OrderAcceptanceRq">
+    <xs:annotation>
+      <xs:documentation>
+        A touchpoint which FNC will deliver
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="AppraiserDetails" type="AppraiserDetailType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="AppraiserDetailType">
+    <xs:sequence>
+      <xs:element name="DocId" type="in:string20" minOccurs="1"/>
+      <xs:element name="ServiceProviderID" type="in:string60" minOccurs="1" />
+      <xs:element name="FirstName" type="in:string60"  minOccurs="1" />
+      <xs:element name="LastName" type="in:string60"  minOccurs="1" />
+      <xs:element name="MailingAddress" type="in:string1024" minOccurs="0" />
+      <xs:element name="Zip" type="in:ZipPlus4" minOccurs="0" />
+      <xs:element name="State" type="xs:string" minOccurs="0" />
+      <xs:element name="County" type="in:string60" minOccurs="0" />
+      <xs:element name="City" type="in:string60"  minOccurs="0" />
+      <xs:element name="PhoneNumber" type="xs:string" minOccurs="0" />
+      <xs:element name="Ext" type="xs:string" minOccurs="0" />
+      <xs:element name="AlternatePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="CellPhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="Pager" type="xs:string" />
+      <xs:element name="Fax" type="xs:string" />
+      <xs:element name="EmailAddress" type="xs:string" />
+      <xs:element name="EandOPolicyNumber" type="xs:string" />
+      <xs:element name="EandOExpirationDate" type="xs:date"/>
+      <xs:element name="EandOCarrier" type="xs:string"/>
+      <xs:element name="EandOAmount" type="xs:decimal"/>
+      <xs:element ref="LicenseInformation" minOccurs="0"  maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:element name="LicenseInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="LicenseState" type="xs:string"/>
+        <xs:element name="LicenseNumber" type="xs:string"/>
+        <xs:element name="LicenseLevel" type="xs:string" />
+        <xs:element name="ExpirationDt" type="xs:date" />
+        <xs:element name="FHA" type="xs:boolean"/>
+        <xs:element name="VA" type="xs:boolean"/>
+        <xs:element name="ASC" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  DataRequest -->
+
+  <xs:element name="DataFeedbackRq">
+    <xs:annotation>
+      <xs:documentation>
+        A touchpoint which FNC will deliver various data services result
+        or contents.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="DataFeedback"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Content">
+    <xs:annotation>
+      <xs:documentation>Different </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Url"  type="xs:string" minOccurs="0"/>
+        <xs:element name="Data" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="Type" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Contents">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Content" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:simpleType name="FeedbackType">
+    <xs:annotation>
+      <xs:documentation>Simple type for a state code (enum)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GAARREVIEW"/>
+      <xs:enumeration value="AIXML"/>
+      <xs:enumeration value="MISMOXML"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="DataFeedback">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Firings" minOccurs="0" />
+        <xs:element ref="Scores" minOccurs="0" />
+        <xs:element ref="Contents" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="DocId" type="in:string20" use="required"/>
+      <xs:attribute name="LoanNumber" type="in:string60" use="required"/>
+      <xs:attribute name="AsOf" type="xs:dateTime" use="required"/>
+      <xs:attribute name="FeedbackType" type="FeedbackType" use="required"/>
+      <xs:attribute name="FeedbackStatusCode" type="xs:string" use="required"/>
+      <xs:attribute name="FeedbackMessage" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Firing">
+    <xs:annotation>
+      <xs:documentation>Each firing represent a GAAR rule</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="RuleId" type="xs:string" use="required"/>
+      <xs:attribute name="Severity" type="xs:string" use="required"/>
+      <xs:attribute name="Description" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Firings">
+    <xs:annotation>
+      <xs:documentation>
+        GUID : the unique identifier to the underlying data, usualy the xml
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Firing" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="SourceGuid" type="in:GUID" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Score">
+    <xs:annotation>
+      <xs:documentation>
+        Use the Name to retrive the proper score. For GAAR Score
+        the Name='GAAR'
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="Value" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Scores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Score" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- invoicing -->
+  <xs:element name="SendInvoidDataRq">
+    <xs:annotation>
+      <xs:documentation>Sending invoicing data</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="Tracking" type="OrderTrackingType" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="InvoiceData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="InvoiceStatusRq">
+    <xs:annotation>
+      <xs:documentation>New Invoice Touchpoint to request Invoice status in LOS</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType" />
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="AddInvoiceLineItemRq">
+    <xs:annotation>
+      <xs:documentation>New touchpoint to allow adding new line items to the chargeout tab from LOS</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType" />
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+        <xs:element ref="ChargeLineItems" minOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ChargePaymentRq">
+    <xs:annotation>
+      <xs:documentation>New touchpoint to request information in the chargeout tab from LOS</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType" />
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+        <xs:element name="PaymentEmail" type="xs:string" minOccurs="0"></xs:element>
+        <xs:element ref="Charges" minOccurs="1"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="ChargeInformationRq">
+    <xs:annotation>
+      <xs:documentation>New touchpoint to request information in the chargeout tab from LOS</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType" />
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="ChargeInformationRs">
+    <xs:annotation>
+      <xs:documentation>Response for the ChargeInformationRq will contain the lineitem information for each charge</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"/>
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+        <xs:element ref="ChargeLineItems" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="SendChargesRq">
+    <xs:annotation>
+      <xs:documentation>The SendChargesRq will contain the lineitem information for each charge for a doc</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+        <xs:element ref="ChargeLineItems" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SendDatesRq">
+    <xs:annotation>
+      <xs:documentation>The SendDatesRq will contain the Date information for a doc</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"/>
+        <xs:element name="DocId" type="in:string20" minOccurs="1"></xs:element>
+        <xs:element name="AssignedDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the order was assigned to the current Service Provider</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="DueFromVendorDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the appraisal is due from the Service Provider</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="DueToCustDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the appraisal and decision is due to the Customer</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ConfirmationDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the Service Provider accepted the order</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="InspectionDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the Service Provider is scheduled to perform the inspection of the Property</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="DraftDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the draft was received from the Service Provider</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="CancelDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the order was canceled</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="AcceptDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the Service Provider accepted the order or accepted the order with conditions</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="CompletionDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the order was completed (Logged Out/Post or Billed)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="OrderDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the order was created/placed in CMS       </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ReviewerAssignDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date a reviewer was assigned to the order</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ProcessorAssignDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date a processor was assigned to the order</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="LoanOfficerAssignDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date a Loan Officer/Broker/Correspondent was assigned to the order</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="FirstCompletionDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the order was first completed (Logged Out/Post or Billed)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="FirstDraftDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The date the first draft was received from the Service Provider</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ClosingDt" type="xs:dateTime" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The expected closing date of the loan</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="InvoiceStatusRs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Invoice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="InvoiceData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="InvoiceUrl" type="xs:string" minOccurs="0"/>
+        <xs:element name="AsOf" type="xs:dateTime" minOccurs="1"/>
+        <xs:element name="CustomerPk" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>A Unique Identifier (PK) for the Customer associated with this order. The list of PKs for all customers will be provided to the client by FNC.</xs:documentation>
+            <xs:documentation>If no customer is assigned to the order 0 will be passed</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Customer" type="OrganizationType" />
+        <xs:element name="ServiceProviderCompany" type="OrganizationType" />
+        <xs:element name="ServiceProvider" type="PersonType" />
+
+        <xs:element name="BorrowerName" type="xs:string"/>
+
+        <xs:element ref="Invoice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Invoice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LineItems" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChargeLineItems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ChargeLineItem" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Charges">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Charge" minOccurs="0" maxOccurs="20"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Charge">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ChargeNumber" type="in:GUID" minOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LineItems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LineItem" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="LineItem">
+
+
+    <xs:annotation>
+      <xs:documentation>
+
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="AdjustmentReason" type="AdjReason" minOccurs="0" />
+        <xs:element name="CustomerPrice" type="xs:decimal" minOccurs="0" />
+        <xs:element name="CustomerChargeStatus" type="ChargeStatus" minOccurs="0" />
+        <xs:element name="CustomerInvoiceDate" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="VendorFee" type="xs:decimal" minOccurs="0" />
+        <xs:element name="VendorChargeStatus" type="ChargeStatus" minOccurs="0" />
+        <xs:element name="VendorInvoiceDate" type="xs:dateTime" minOccurs="0" />
+
+      </xs:sequence>
+      <xs:attribute name="ChargeNo" type="in:GUID" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <xs:element name="ChargeLineItem">
+    <xs:annotation>
+      <xs:documentation>
+
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CustomerAdjustmentReason" type="xs:string" minOccurs="0" />
+        <xs:element name="CustomerPrice" type="xs:decimal" minOccurs="0" />
+        <xs:element name="CustomerChargeStatus" type="ChargeStatus" minOccurs="0" />
+        <xs:element name="CustomerPaidDate" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="CustomerInvoiceDate" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="VendorFee" type="xs:decimal" minOccurs="0" />
+        <xs:element name="VendorChargeStatus" type="ChargeStatus" minOccurs="0" />
+        <xs:element name="VendorAdjustmentReason" type="xs:string" minOccurs="0" />
+        <xs:element name="VendorPaidDate" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="VendorInvoiceDate" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="InvoiceNumber" type="in:string20" minOccurs="0"/>
+        <xs:element  name="ChargeNo" type="in:GUID" minOccurs="0"/>
+      </xs:sequence>
+
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="AdjReason">
+    <xs:annotation>
+      <xs:documentation>
+        Simple type for a ajustment reason (enum)
+        A                 Addendum
+        AC                Atypical Cancellation
+        DF                Distance Fee
+        ED                Employee Discount
+        EF                Exception Fee
+        EP                Exception Price
+        MC                Management Concession
+        NA                New Assignment/Transfer
+        NewA              New Assignment
+        OTH               Other
+        RA                Reassignment
+        RUSH              Rush Fee
+        TF                Trip Fee/Research Fee
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A"/>
+      <xs:enumeration value="AC"/>
+      <xs:enumeration value="DF"/>
+      <xs:enumeration value="ED"/>
+      <xs:enumeration value="EF"/>
+      <xs:enumeration value="EP"/>
+      <xs:enumeration value="MC"/>
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="NewA"/>
+      <xs:enumeration value="OTH"/>
+      <xs:enumeration value="RA"/>
+      <xs:enumeration value="RUSH"/>
+      <xs:enumeration value="TF"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ChargeStatus">
+    <xs:annotation>
+      <xs:documentation>
+        Simple type for a charge stuatus (enum)
+        I = invoiced
+        P = Pending
+        PD = Paid
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="I"/>
+      <xs:enumeration value="P"/>
+      <xs:enumeration value="PD"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="OrganizationType">
+    <xs:sequence>
+      <xs:element name="CompanyID" type="xs:string"/>
+      <xs:element name="CompanyName" type="xs:string"/>
+      <xs:element name="CompanyAddress" type="AddressInfoType" minOccurs="0" />
+      <xs:element name="Phone" type="xs:string" />
+      <xs:element name="AltPhone" type="xs:string" minOccurs="0" />
+      <xs:element name="Email" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="PersonType">
+    <xs:sequence>
+      <xs:element name="PersonID" type="xs:string"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Address" type="AddressInfoType" minOccurs="0" />
+      <xs:element name="Phone" type="xs:string" />
+      <xs:element name="AltPhone" type="xs:string" minOccurs="0" />
+      <xs:element name="Email" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UCDPInfo">
+    <xs:sequence>
+      <xs:element name="FannieStatus"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="FreddieStatus"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="UCDPID"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="LoanNumber"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="SubmissionID"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name ="RecentSubmission"  minOccurs="0" type="xs:dateTime" ></xs:element>
+      <xs:element name="RecentFinding"   minOccurs="0" type="xs:dateTime" ></xs:element>
+      <xs:element name="GateWayStatus"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="GatewayNote" minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="CUScore" minOccurs="0" type="xs:float" ></xs:element>
+
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EADInfo">
+    <xs:sequence>
+      <xs:element name="FHAStatus"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="EADID"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="LoanNumber"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="SubmissionID"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="RecentSubmission"  minOccurs="0" type="xs:dateTime" ></xs:element>
+      <xs:element name="RecentFinding"   minOccurs="0" type="xs:dateTime" ></xs:element>
+      <xs:element name="GateWayStatus"  minOccurs="0" type="xs:string" ></xs:element>
+      <xs:element name="GatewayNote" minOccurs="0" type="xs:string" ></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:element name="UpdateOrderStatusRq">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="OrderStatusUpdate" type="UpdateOrderStatusRqType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="UpdateOrderStatusRqType">
+    <xs:sequence>
+      <xs:element name="DocId" type="in:string20" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>DocId of order status to change.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StatusId" type="in:string10" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            StatusID	Description
+            M	Accepted
+            AC	Provider Accepts w/ Condition
+            D	Draft Received from Provider
+            C	Cancelled – General
+            CD	Cancelled – Duplicate Request
+            CR	Cancelled – By Request
+            CE	Cancelled – Refund Due
+            LA	Approved – As Is
+            LC	Approved – With Conditions
+            LD	Declined
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:element name="FeeInformationRq">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>API access to Good Faith Appraisal Fee Estimator. Response to this post will be of type</xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType">
+          <xs:annotation>
+            <xs:documentation>
+              SourceApp = LOS
+              TargetApp = CHQ
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="LoanData" type="FeeInformationRqType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FeeInformationRs">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>Immediate response to FeeInformationRq, containing a GUID tracking Id. As fee determination can take significant time, the actual fee will be returned in a follow-up post of FeeInformationResultRq containing the given tracking Id.</xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="Header" type="in:ResponseHdrType"></xs:element>
+        <xs:element name="FeeInformationTrackingId" type="in:GUID" minOccurs="1"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FeeInformationResultRq">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:documentation>Follow-up post containing the given tracking Id as a reference and the Good Faith Appraisal Fee Estimation.</xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="Header" type="in:RequestHdrType"></xs:element>
+        <xs:element name="QuoteData" type="FeeInformationResultRqType" minOccurs="1"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="FeeInformationRqType">
+    <xs:sequence>
+      <xs:element name="PropertyAddress" type="in:string70" minOccurs="1"></xs:element>
+      <xs:element name="City" type="in:string30" minOccurs="1"></xs:element>
+      <xs:element name="State" type="in:State" minOccurs="1"></xs:element>
+      <xs:element name="Zip" type="in:ZipPlus4" minOccurs="1"></xs:element>
+      <xs:element name="County" type="in:string30" minOccurs="1"></xs:element>
+      <xs:element name="ServiceType" type="ServiceOption" minOccurs="1"></xs:element>
+      <xs:element name="SubLoanType" type="SubLoanTypeOption" minOccurs="0"></xs:element>
+      <xs:element name="SalesPrice" type="xs:decimal" minOccurs="0"></xs:element>
+      <xs:element name="OwnerEstimatedValue" type="xs:decimal" minOccurs="0"></xs:element>
+      <xs:element name="CustomerOrgPk" type="xs:int" minOccurs="0"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FeeInformationResultRqType">
+    <xs:sequence>
+      <xs:element name="FeeInformationTrackingId" type="in:GUID" minOccurs="1"></xs:element>
+      <xs:element name="PropertyAddress" type="in:string70" minOccurs="1"></xs:element>
+      <xs:element name="City" type="in:string30" minOccurs="1"></xs:element>
+      <xs:element name="State" type="in:State" minOccurs="1"></xs:element>
+      <xs:element name="Zip" type="in:ZipPlus4" minOccurs="1"></xs:element>
+      <xs:element name="County" type="in:string30" minOccurs="1"></xs:element>
+      <xs:element name="ServiceType" type="ServiceOption" minOccurs="1"></xs:element>
+      <xs:element name="SubLoanType" type="SubLoanTypeOption" minOccurs="0"></xs:element>
+      <xs:element name="SalesPrice" type="xs:decimal" minOccurs="0"></xs:element>
+      <xs:element name="OwnerEstimatedValue" type="xs:decimal" minOccurs="0"></xs:element>
+      <xs:element name="CustomerOrgPk" type="xs:int" minOccurs="0"></xs:element>
+      <xs:element name="AppraisalFeeFound" type="xs:boolean"></xs:element>
+      <xs:element name="EstimatedAppraisalFee" type="xs:decimal"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
